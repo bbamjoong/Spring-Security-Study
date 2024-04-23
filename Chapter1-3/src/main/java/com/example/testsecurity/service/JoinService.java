@@ -28,7 +28,8 @@ public class JoinService {
         data.setUsername(joinDTO.getUsername());
         // bCryptPasswordEncoder Bean을 이용해 인코딩 후 password 저장
         data.setPassword(bCryptPasswordEncoder.encode(joinDTO.getPassword()));
-        data.setRole("ROLE_USER");
+//        data.setRole("ROLE_USER");
+        data.setRole("ROLE_ADMIN"); // admin으로 회원가입
 
         userRepository.save(data);
     }
