@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    hibernate:
+      # DDL을 통해 DB를 생성하기 싫으면 첫 실행 때 ddl-auto옵션을 update로 변경 후, none으로 재변경
+      ddl-auto: none
+      # Entity 생성 시 변수 명을 그대로 매핑 안하고 언더바 형식 카멜을(UserName => user_name) 으로 자동 매핑해준다.
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        # show_sql: true   # System.out에 하이버네이트 실행 SQL을 남긴다.
+        format_sql: true
+logging.level:
+  org.hibernate.SQL: debug  # logger를 통해 하이버네이트 실행 SQL을 남긴다.
+  org.hibernate.type: trace # 파라미터를 로그로 남기는 설정

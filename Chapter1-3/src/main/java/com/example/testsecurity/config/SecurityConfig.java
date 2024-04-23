@@ -2,7 +2,6 @@ package com.example.testsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -24,7 +23,9 @@ public class SecurityConfig {
 
         http.authorizeHttpRequests((auth) -> auth
                         // permitAll : 로그인을 하지 않아도 해당 경로 접근 가능
-                        .requestMatchers("/", "/login").permitAll()
+                        .requestMatchers("/",
+                                "/login", "/loginProc",
+                                "/join", "/joinProc").permitAll()
                         // hasRole : 로그인 후 해당 Role이 있어야 접근 가능
                         .requestMatchers("/admin").hasRole("ADMIN")
                         // hasAnyRole : 로그인 후 여러 Role중 하나라도 있어야 접근 가능
