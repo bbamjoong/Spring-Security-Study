@@ -1,17 +1,20 @@
 # Spring-Security-Study
 
-## Chapter1
-- [간단한 동작 원리](https://www.youtube.com/watch?v=y0PXQgrkb90&list=PLJkjrxxiBSFCKD9TRKDYn7IE96K2u3C3U&index=1)<br>
-- [노션](https://substantial-park-a17.notion.site/1-77499a384b394a7a8fbbe573d4192f2d?pvs=4)
+## Chapter6
+
+- [DB 연결](https://www.youtube.com/watch?v=dIFq8Fbmx0w&list=PLJkjrxxiBSFCKD9TRKDYn7IE96K2u3C3U&index=7&ab_channel=%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9C%A0%EB%AF%B8)<br>
+- [노션](https://substantial-park-a17.notion.site/6-DB-93c10da1f6a3438f8dd32c4f3baaab5c)
 
 <br>
 
-## Chapter2
-- [프로젝트 생성](https://www.youtube.com/watch?v=qnDdx8XdKwY&list=PLJkjrxxiBSFCKD9TRKDYn7IE96K2u3C3U&index=2)<br>
-- [노션](https://substantial-park-a17.notion.site/2-1f93426785a24c038ad06d0cb794ff90?pvs=4)
+## Chapter7
+
+- [회원 가입 로직](https://www.youtube.com/watch?v=m9lsS36QGCk&ab_channel=%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9C%A0%EB%AF%B8)<br>
+- [노션](https://substantial-park-a17.notion.site/7-3fbc0b42222841fc81ab94bd8c1dbdf6)
 
 <br>
 
-## Chapter3
-- [Security Config 인가 작업](https://www.youtube.com/watch?v=ov84EoU0KAE&list=PLJkjrxxiBSFCKD9TRKDYn7IE96K2u3C3U&index=3)<br>
-- [노션](https://substantial-park-a17.notion.site/3-Security-Config-0b1f143d224e4ec98f2506d6c84d0701)
+## Chapter7-1
+
+- [회원 중복 검증](https://www.youtube.com/watch?v=MebrJCxjc6s&list=PLJkjrxxiBSFCKD9TRKDYn7IE96K2u3C3U&index=9&ab_channel=%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9C%A0%EB%AF%B8)<br>
+- [노션](https://substantial-park-a17.notion.site/27aecc31ca1f4e89bb424d3b4ee00875)
