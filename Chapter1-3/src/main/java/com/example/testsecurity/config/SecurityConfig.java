@@ -45,8 +45,17 @@ public class SecurityConfig {
 
         // csrf : 위변조 방지 기능. 토큰을 주고 받으며 인증
         // 개발 단계에서는 해당 옵션을 켜두면 로그인이 진행되지 않으니 일단 disable
+        // 해당 옵션이 존재하지 않는다면 자동적으로 enable()로 설정.
+        // 이 때 스프링 시큐리티는 `CsrfFilter`를 통해서 요청에 대한 토큰 검증을 진행한다.
+
+//        http
+//                .csrf((auth) -> auth.disable());
+
+        // 로그아웃을 get방식으로 진행할 때 enable() 상태면 진행되지 않는다.
+        // 따라서 아래와 같은 코드 추가
         http
-                .csrf((auth) -> auth.disable());
+                .logout((auth) -> auth.logoutUrl("/logout")
+                        .logoutSuccessUrl("/"));
 
         // 다중 로그인을 방지하기 위한 설정
         http
