@@ -4,7 +4,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -16,6 +20,25 @@ public class SecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
 
         return new BCryptPasswordEncoder();
+    }
+
+    // DB를 사용하지 않고 InMemory 방식으로 유저를 저장할 수 있다.
+    @Bean
+    public UserDetailsService userDetailsService() {
+
+        UserDetails user1 = User.builder()
+                .username("user1")
+                .password(bCryptPasswordEncoder().encode("1234"))
+                .roles("ADMIN")
+                .build();
+
+        UserDetails user2 = User.builder()
+                .username("user2")
+                .password(bCryptPasswordEncoder().encode("1234"))
+                .roles("USER")
+                .build();
+
+        return new InMemoryUserDetailsManager(user1, user2);
     }
 
     @Bean
