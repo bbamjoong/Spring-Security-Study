@@ -48,6 +48,25 @@ public class SecurityConfig {
         http
                 .csrf((auth) -> auth.disable());
 
+        // 다중 로그인을 방지하기 위한 설정
+        http
+                .sessionManagement((auth) -> auth
+                        .maximumSessions(1) // 최대 세션은 1개로 하겠음.
+                        // true : 최대 세션을 초과하면 새로운 로그인 차단
+                        // false : 최대 세션을 초과하면 기존 세션 하나 삭제
+                        .maxSessionsPreventsLogin(true)
+                );
+
+        // 세션 고정 공격 보호
+        // none() : 로그인 시 세션 정보 변경 안함 -> 세션 고정 공격을 당할 수 있음.
+
+        // newSession() : 로그인 시 세션 새로 생성
+        // changeSessionId() : 로그인 시 동일한 세션에 대한 id 변경
+        http
+                .sessionManagement((auth) -> auth
+                        .sessionFixation().changeSessionId()
+                );
+
         return http.build();
     }
 }
