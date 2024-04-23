@@ -1,5 +1,6 @@
 # Spring-Security-Study
 아래의 강의를 참고했습니다.<br>
+브랜치별로 강의가 나뉘어 있습니다.<br><br>
 [개발자 유미 - 스프링 시큐리티](https://www.youtube.com/playlist?list=PLJkjrxxiBSFCKD9TRKDYn7IE96K2u3C3U)
 
 <br>
