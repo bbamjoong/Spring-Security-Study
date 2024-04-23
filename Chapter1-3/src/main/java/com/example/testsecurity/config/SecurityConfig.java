@@ -2,13 +2,10 @@ package com.example.testsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
@@ -22,25 +19,26 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
-    // DB를 사용하지 않고 InMemory 방식으로 유저를 저장할 수 있다.
-    @Bean
-    public UserDetailsService userDetailsService() {
-
-        UserDetails user1 = User.builder()
-                .username("user1")
-                .password(bCryptPasswordEncoder().encode("1234"))
-                .roles("ADMIN")
-                .build();
-
-        UserDetails user2 = User.builder()
-                .username("user2")
-                .password(bCryptPasswordEncoder().encode("1234"))
-                .roles("USER")
-                .build();
-
-        return new InMemoryUserDetailsManager(user1, user2);
-    }
-
+    /**
+     * DB를 사용하지 않고 InMemory 방식으로 유저를 저장할 수 있다. 해당 빈이 존재할 경우 DB 연결 불가능 -> 주석처리 해주도록 함.
+     */
+//    @Bean
+//    public UserDetailsService userDetailsService() {
+//
+//        UserDetails user1 = User.builder()
+//                .username("user1")
+//                .password(bCryptPasswordEncoder().encode("1234"))
+//                .roles("ADMIN")
+//                .build();
+//
+//        UserDetails user2 = User.builder()
+//                .username("user2")
+//                .password(bCryptPasswordEncoder().encode("1234"))
+//                .roles("USER")
+//                .build();
+//
+//        return new InMemoryUserDetailsManager(user1, user2);
+//    }
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -58,13 +56,23 @@ public class SecurityConfig {
                 // DenyAll : 로그인을 해도 모든 사용자의 접근을 막음
         );
 
+        /**
+         * SpringSecurity의 로그인 방식은 크게 두가지가 존재한다.
+         * 1. formLogin
+         * 2. httpBasic -> 좀더 엄격한 보안을 위해 Header에 id, password를 담는다.
+         */
+        // formLogin 방식
+//        http
+//                // 로그인 uri 경로 입력
+//                .formLogin((auth) -> auth.loginPage("/login")
+//                        // 로그인 form에서 입력한 정보를 넘겨줄 uri 경로
+//                        // permitAll : 로그인을 하지 않아도 해당 경로 접근 가능
+//                        .loginProcessingUrl("/loginProc").permitAll()
+//                );
+
+        // httpBasic 방식
         http
-                // 로그인 uri 경로 입력
-                .formLogin((auth) -> auth.loginPage("/login")
-                        // 로그인 form에서 입력한 정보를 넘겨줄 uri 경로
-                        // permitAll : 로그인을 하지 않아도 해당 경로 접근 가능
-                        .loginProcessingUrl("/loginProc").permitAll()
-                );
+                .httpBasic(Customizer.withDefaults());
 
         // csrf : 위변조 방지 기능. 토큰을 주고 받으며 인증
         // 개발 단계에서는 해당 옵션을 켜두면 로그인이 진행되지 않으니 일단 disable
