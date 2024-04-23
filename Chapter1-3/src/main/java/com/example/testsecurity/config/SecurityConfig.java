@@ -2,6 +2,7 @@ package com.example.testsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
@@ -24,6 +25,19 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 // DenyAll : 로그인을 해도 모든 사용자의 접근을 막음
         );
+
+        http
+                // 로그인 uri 경로 입력
+                .formLogin((auth) -> auth.loginPage("/login")
+                        // 로그인 form에서 입력한 정보를 넘겨줄 uri 경로
+                        // permitAll : 로그인을 하지 않아도 해당 경로 접근 가능
+                        .loginProcessingUrl("/loginProc").permitAll()
+                );
+
+        // csrf : 위변조 방지 기능. 토큰을 주고 받으며 인증
+        // 개발 단계에서는 해당 옵션을 켜두면 로그인이 진행되지 않으니 일단 disable
+        http
+                .csrf((auth) -> auth.disable());
 
         return http.build();
     }
