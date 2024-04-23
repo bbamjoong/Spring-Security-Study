@@ -2,6 +2,8 @@ package com.example.testsecurity.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -39,6 +41,20 @@ public class SecurityConfig {
 //
 //        return new InMemoryUserDetailsManager(user1, user2);
 //    }
+
+    /**
+     * 계층 권한 설정
+     */
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+
+        RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
+
+        hierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
+
+        return hierarchy;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
@@ -50,7 +66,10 @@ public class SecurityConfig {
                         // hasRole : 로그인 후 해당 Role이 있어야 접근 가능
                         .requestMatchers("/admin").hasRole("ADMIN")
                         // hasAnyRole : 로그인 후 여러 Role중 하나라도 있어야 접근 가능
-                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
+//                        .requestMatchers("/my/**").hasAnyRole("ADMIN", "USER")
+
+                        // 계층 권한을 설정했을 경우 USER 만 설정해도, USER보다 상위 권한을 가진 ADMIN도 접근이 가능하다.
+                        .requestMatchers("/my/**").hasAnyRole("USER")
                         // anyRequest : 다른 모든 요청, authenticated() : 로그인을 하면 모두 접근 가능
                         .anyRequest().authenticated()
                 // DenyAll : 로그인을 해도 모든 사용자의 접근을 막음
